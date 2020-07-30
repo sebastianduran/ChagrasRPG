@@ -4,7 +4,7 @@
   "description": "JavaScript example starter project",
   "main": "index.js",
   "scripts": {
-    "start": "node completeApp.js",
+    "start": "nodemon completeApp.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -12,14 +12,10 @@
     "mongodb": "3.5.9",
     "parsejson": "0.0.3",
     "promise": "8.1.0",
-    "socket.io": "2.3.0",
-    "grunt": "1.2.1",
-    "grunt-contrib-concat": "1.0.1"
-  },
-  "engines": {
-    "node": "8.x.x"
+    "socket.io": "2.3.0"
   },
   "devDependencies": {
+    "nodemon": "1.18.4",
     "grunt": "1.2.1",
     "grunt-contrib-concat": "1.0.1"
   },
