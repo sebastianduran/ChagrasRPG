@@ -52,10 +52,10 @@ socket.on("signInResponse", function(data) {
   } else alert("Sign in unsuccessful");
 });
 
-var chatText = document.getElementById("chat-text");
-var chatForm = document.getElementById("chat-form");
-var chatInput = document.getElementById("chat-input");
-var canvas = document.getElementById("myCanvas").getContext("2d");
+const chatText = document.getElementById("chat-text");
+const chatForm = document.getElementById("chat-form");
+const chatInput = document.getElementById("chat-input");
+const canvas = document.getElementById("myCanvas").getContext("2d");
 canvas.font = "15px Arial";
 
 socket.on("addToChat", function(data) {
@@ -64,7 +64,7 @@ socket.on("addToChat", function(data) {
 });
 
 function inTextField(event) {
-  var elem = event.target || event.srcElement;
+  let elem = event.target || event.srcElement;
   if (elem.nodeType === 3) elem = elem.parentNode;
 
   return (
@@ -91,7 +91,7 @@ socket.on("renderInfo", function(playerData, bulletData) {
 
   playerListDisplay.innerHTML = "";
 
-  for (var player of playerData) {
+  for (let player of playerData) {
     canvas.fillText(player.username + ": " + player.points, player.x, player.y);
     playerListDisplay.innerHTML +=
       "<div>" + player.username + ": " + player.points + "</div>";
@@ -99,13 +99,13 @@ socket.on("renderInfo", function(playerData, bulletData) {
     drawChar(player);
   }
 
-  for (var bullet of bulletData) {
+  for (let bullet of bulletData) {
     drawBullet(bullet);
   }
 });
 
 socket.on("Time", function() {
-  var date = Date().slice(4, 24);
+  const date = Date().slice(4, 24);
   timeStamp.innerHTML = date;
 });
 
@@ -228,7 +228,7 @@ function drawBullet(bullet) {
   );
 }
 
-function UpdateCharModel(name) {
+/*0function UpdateCharModel(name) {
   charImg.src = "/cilent/sprites/" + name + ".png";
   socket.emit("charUpdate", { charName: name });
-}
+}*/
