@@ -1,6 +1,6 @@
 //import Player from "./server/model/Player";
 
-const SERVER_PORT = 4000;
+const SERVER_PORT = 8000;
 const REFRESH_RATE = 25;
 
 const MONGO_REPO = "Account";
