@@ -1,4 +1,4 @@
-//import Player from "./server/model/Player";
+import Player from "./server/model/Player";
 
 const SERVER_PORT = 8000;
 const REFRESH_RATE = 25;
@@ -13,7 +13,7 @@ const mongoClient = require("mongodb").MongoClient;
 const url = "mongodb://admin:admin@ds014648.mlab.com:14648/mmorpg";
 let dbo;
 
-app.get("/", function(req, res) {
+app.get("/", function (req, res) {
   res.sendFile(__dirname + "/client/index.html");
 });
 
@@ -26,35 +26,35 @@ let socketList = {};
 let playerList = {};
 let bulletList = {};
 
-mongoClient.connect(url, function(err, db) {
+mongoClient.connect(url, function (err, db) {
   if (err) throw err;
   dbo = db.db("mmorpg");
-  dbo.createCollection(MONGO_REPO, function(err, res) {
+  dbo.createCollection(MONGO_REPO, function (err, res) {
     if (err) throw err;
     console.log("Collection created!");
   });
 });
 
-io.sockets.on("connection", function(socket) {
+io.sockets.on("connection", function (socket) {
   socket.id = Math.random();
   socketList[socket.id] = socket;
   console.log("Socket " + socket.id + " has connected");
 
-  socket.on("signUp", function(userData) {
-    isValidNewCredential(userData).then(function(res) {
+  socket.on("signUp", function (userData) {
+    isValidNewCredential(userData).then(function (res) {
       if (res) insertCredential(userData);
       socket.emit("signUpResponse", { success: res });
     });
   });
 
-  socket.on("signIn", function(userData) {
-    isCorrectCredential(userData).then(function(res) {
+  socket.on("signIn", function (userData) {
+    isCorrectCredential(userData).then(function (res) {
       if (res.valid) onConnect(socket, userData.username, res.points);
       socket.emit("signInResponse", { success: res.valid });
     });
   });
 
-  socket.on("disconnect", function() {
+  socket.on("disconnect", function () {
     if (socketList[socket.id] != null) {
       delete socketList[socket.id];
       console.log(socket.id + " has disconnected");
@@ -69,7 +69,7 @@ io.sockets.on("connection", function(socket) {
       const newValues = { $set: { points: player.points } };
       dbo
         .collection(MONGO_REPO)
-        .updateOne(query, newValues, function(err, res) {
+        .updateOne(query, newValues, function (err, res) {
           if (err) throw err;
           console.log("MongoDB Document Updated: " + res.result);
         });
@@ -79,7 +79,7 @@ io.sockets.on("connection", function(socket) {
   });
 });
 
-setInterval(function() {
+setInterval(function () {
   var pack = [];
 
   for (let i in playerList) {
@@ -105,7 +105,7 @@ setInterval(function() {
       bullet.update();
 
       for (let i in playerList) {
-        var player = playerList[i];
+        const player = playerList[i];
         if (
           bullet.x > player.x &&
           bullet.x < player.x + 50 &&
@@ -133,14 +133,14 @@ setInterval(function() {
 }, REFRESH_RATE);
 
 function isValidNewCredential(userData) {
-  return new Promise(function(callback) {
+  return new Promise(function (callback) {
     var query = {
       username: userData.username
     };
     dbo
       .collection(MONGO_REPO)
       .find(query)
-      .toArray(function(err, result) {
+      .toArray(function (err, result) {
         if (err) throw err;
         if (result.length === 0) {
           console.log(
@@ -158,7 +158,7 @@ function isValidNewCredential(userData) {
 }
 
 function isCorrectCredential(userData) {
-  return new Promise(function(callback) {
+  return new Promise(function (callback) {
     var query = {
       username: userData.username,
       password: userData.password
@@ -166,7 +166,7 @@ function isCorrectCredential(userData) {
     dbo
       .collection(MONGO_REPO)
       .find(query)
-      .toArray(function(err, result) {
+      .toArray(function (err, result) {
         if (err) throw err;
         if (result.length !== 0) {
           console.log("Matching Credential: " + JSON.stringify(result[0]));
@@ -185,7 +185,7 @@ function insertCredential(data) {
     password: data.password,
     points: 0
   };
-  dbo.collection(MONGO_REPO).insertOne(account, function(err, res) {
+  dbo.collection(MONGO_REPO).insertOne(account, function (err, res) {
     if (err) throw err;
     console.log("MongoDB Document Inserted: " + JSON.stringify(account));
   });
@@ -199,7 +199,7 @@ function onConnect(socket, name, points) {
   var player = Player(socket.id, name, points);
   playerList[socket.id] = player;
 
-  socket.on("keyPress", function(data) {
+  socket.on("keyPress", function (data) {
     //glitchy character movement
     if (data.inputId === "right") player.rightPress = data.state;
     else if (data.inputId === "left") player.leftPress = data.state;
@@ -211,24 +211,24 @@ function onConnect(socket, name, points) {
     else player.lastPosition = data.inputId;
   });
 
-  socket.on("sendMsgToServer", function(data) {
+  socket.on("sendMsgToServer", function (data) {
     var playerName = "" + player.username;
     toAllChat(playerName + ": " + data);
   });
 
-  socket.on("kms", function() {
+  socket.on("kms", function () {
     if (playerList[socket.id] != null) {
       delete playerList[socket.id];
     }
   });
 
-  socket.on("revive", function() {
+  socket.on("revive", function () {
     if (playerList[socket.id] == null) {
       playerList[socket.id] = player;
     }
   });
 
-  socket.on("charUpdate", function(data) {
+  socket.on("charUpdate", function (data) {
     player.char = data.charName;
   });
 }
