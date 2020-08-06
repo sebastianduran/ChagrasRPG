@@ -12,7 +12,7 @@ const timeStamp = document.getElementById("timeStamp");
 const playerListDisplay = document.getElementById("player-list");
 
 const charImg = new Image();
-charImg.src = "/cilent/sprites/tyler1.png";
+charImg.src = "/client/sprites/tyler1.png";
 const imgFrameIndex = 50;
 const imgWidth = 50;
 const imgHeight = 60;
@@ -150,8 +150,8 @@ document.onkeyup = function(event) {
 };
 
 function drawChar(player) {
-  var playersImg = new Image();
-  playersImg.src = "/cilent/sprites/" + player.char + ".png";
+  const playersImg = new Image();
+  playersImg.src = "/client/sprites/" + player.char + ".png";
 
   switch (player.lastPosition) {
     case "down":
@@ -212,8 +212,8 @@ function drawChar(player) {
 }
 
 function drawBullet(bullet) {
-  var bulletImg = new Image();
-  bulletImg.src = "/cilent/sprites/bullet.png";
+  const bulletImg = new Image();
+  bulletImg.src = "/client/sprites/bullet.png";
 
   canvas.drawImage(
     bulletImg,
@@ -229,6 +229,6 @@ function drawBullet(bullet) {
 }
 
 /*0function UpdateCharModel(name) {
-  charImg.src = "/cilent/sprites/" + name + ".png";
+  charImg.src = "/client/sprites/" + name + ".png";
   socket.emit("charUpdate", { charName: name });
 }*/
