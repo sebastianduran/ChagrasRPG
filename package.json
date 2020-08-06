@@ -2,9 +2,9 @@
   "name": "vanilla",
   "version": "1.0.0",
   "description": "JavaScript example starter project",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "nodemon completeApp.js",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

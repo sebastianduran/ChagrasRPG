@@ -14,10 +14,10 @@ const url = "mongodb://admin:admin@ds014648.mlab.com:14648/mmorpg";
 let dbo;
 
 app.get("/", function(req, res) {
-  res.sendFile(__dirname + "/cilent/index.html");
+  res.sendFile(__dirname + "/client/index.html");
 });
 
-app.use("/cilent", express.static(__dirname + "/cilent"));
+app.use("/client", express.static(__dirname + "/client"));
 
 server.listen(process.env.PORT || SERVER_PORT);
 console.log("Server Started! localhost: " + SERVER_PORT);
