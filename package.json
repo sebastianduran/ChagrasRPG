@@ -4,7 +4,8 @@
   "description": "JavaScript example starter project",
   "main": "app.js",
   "scripts": {
-    "start": "babel-node ./app.js",
+    "build": "babel-node app.js",
+    "start": "nodemon --exec yarn run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -20,5 +21,8 @@
     "promise": "8.1.0",
     "socket.io": "2.3.0"
   },
-  "keywords": ["javascript", "starter"]
+  "keywords": [
+    "javascript",
+    "starter"
+  ]
 }
