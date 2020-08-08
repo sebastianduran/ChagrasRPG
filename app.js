@@ -4,14 +4,15 @@ const SERVER_PORT = 8000;
 const REFRESH_RATE = 25;
 
 const MONGO_REPO = "Account";
-
 const express = require("express");
-const app = express();
-const server = require("http").Server(app);
-const io = require("socket.io")(server, {});
-const mongoClient = require("mongodb").MongoClient;
+const app = require("express")();
+const server = require("http").createServer(app);
+
+const MongoClient = require("mongodb").MongoClient;
+const assert = require("assert");
 const url = "mongodb://admin:admin@ds014648.mlab.com:14648/mmorpg";
 let dbo;
+const io = require("socket.io")(server);
 
 app.get("/", function (req, res) {
   res.sendFile(__dirname + "/client/index.html");
@@ -19,14 +20,14 @@ app.get("/", function (req, res) {
 
 app.use("/client", express.static(__dirname + "/client"));
 
-server.listen(process.env.PORT || SERVER_PORT);
-console.log("Server Started! localhost: " + SERVER_PORT);
-
 let socketList = {};
 let playerList = {};
 let bulletList = {};
 
-mongoClient.connect(url, function (err, db) {
+const client = new MongoClient(url, { useUnifiedTopology: true });
+
+client.connect(function (err, db) {
+  assert.equal(null, err);
   if (err) throw err;
   dbo = db.db("mmorpg");
   dbo.createCollection(MONGO_REPO, function (err, res) {
@@ -34,8 +35,9 @@ mongoClient.connect(url, function (err, db) {
     console.log("Collection created!");
   });
 });
-
-io.sockets.on("connection", function (socket) {
+//console.log(app);
+io.on("connection", function (socket) {
+  console.log("por fin");
   socket.id = Math.random();
   socketList[socket.id] = socket;
   console.log("Socket " + socket.id + " has connected");
@@ -43,14 +45,14 @@ io.sockets.on("connection", function (socket) {
   socket.on("signUp", function (userData) {
     isValidNewCredential(userData).then(function (res) {
       if (res) insertCredential(userData);
-      socket.emit("signUpResponse", { success: res });
+      io.emit("signUpResponse", { success: res });
     });
   });
 
   socket.on("signIn", function (userData) {
     isCorrectCredential(userData).then(function (res) {
       if (res.valid) onConnect(socket, userData.username, res.points);
-      socket.emit("signInResponse", { success: res.valid });
+      io.emit("signInResponse", { success: res.valid });
     });
   });
 
@@ -78,6 +80,8 @@ io.sockets.on("connection", function (socket) {
     }
   });
 });
+server.listen(process.env.PORT || SERVER_PORT);
+console.log("Server Started! localhost at port: " + SERVER_PORT);
 
 setInterval(function () {
   var pack = [];
@@ -124,9 +128,8 @@ setInterval(function () {
       });
     }
   }
-
   for (let i in socketList) {
-    var socket = socketList[i];
+    const socket = socketList[i];
     socket.emit("renderInfo", pack, bulletPack);
     socket.emit("Time");
   }
@@ -180,7 +183,7 @@ function isCorrectCredential(userData) {
 }
 
 function insertCredential(data) {
-  var account = {
+  const account = {
     username: data.username,
     password: data.password,
     points: 0
@@ -192,11 +195,11 @@ function insertCredential(data) {
 }
 
 function toAllChat(line) {
-  for (var i in socketList) socketList[i].emit("addToChat", line);
+  for (let i in socketList) socketList[i].emit("addToChat", line);
 }
 
 function onConnect(socket, name, points) {
-  var player = Player(socket.id, name, points);
+  const player = Player(socket.id, name, points);
   playerList[socket.id] = player;
 
   socket.on("keyPress", function (data) {
@@ -212,7 +215,7 @@ function onConnect(socket, name, points) {
   });
 
   socket.on("sendMsgToServer", function (data) {
-    var playerName = "" + player.username;
+    const playerName = "" + player.username;
     toAllChat(playerName + ": " + data);
   });
 

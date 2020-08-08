@@ -1,10 +1,10 @@
-### Deployed Heroku App:
 
-Click on the following link and start playing!
 
 [Multiplayer-Online-Game](https://mmorpg-ps-12345.herokuapp.com/)
 
 ## Simple MMORPG game created using Node.js
+
+Original from [Wilshum](https://github.com/wilshum/Multiplayer-Online-Game)
 
 This game used express as the web application framework, mongoDB as the database and also used socket.IO for real-time interactions between server and cilents. The application is deployed in Heroku using mongoDB database hosted on mLab, a cloud database service.
 
