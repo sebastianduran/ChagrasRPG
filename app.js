@@ -37,7 +37,6 @@ client.connect(function (err, db) {
 });
 //console.log(app);
 io.on("connection", function (socket) {
-  console.log("por fin");
   socket.id = Math.random();
   socketList[socket.id] = socket;
   console.log("Socket " + socket.id + " has connected");
@@ -61,8 +60,9 @@ io.on("connection", function (socket) {
       delete socketList[socket.id];
       console.log(socket.id + " has disconnected");
     }
-    let player = playerList[socket.id];
-    if (player !== null) {
+    const player = playerList[socket.id];
+    if (Array.isArray(playerList) || playerList.length) {
+      //encaso de que el array es no esté vacio ...
       toAllChat(player.username + " has disconnected.");
 
       const query = {
@@ -84,7 +84,7 @@ server.listen(process.env.PORT || SERVER_PORT);
 console.log("Server Started! localhost at port: " + SERVER_PORT);
 
 setInterval(function () {
-  var pack = [];
+  const pack = [];
 
   for (let i in playerList) {
     let player = playerList[i];
