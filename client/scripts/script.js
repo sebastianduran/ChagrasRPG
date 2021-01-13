@@ -1,4 +1,9 @@
-const socket = require("socket.io");
+// const express = require("express");
+// const app = express();
+// const http = require("http").Server(app);
+var socket = io();
+
+console.log("quiero ver que pasa si pasa algo");
 
 const gameDiv = document.getElementById("gameDiv");
 const signDiv = document.getElementById("signDiv");
@@ -17,35 +22,35 @@ const imgFrameIndex = 50;
 const imgWidth = 50;
 const imgHeight = 60;
 
-signDivSignIn.onclick = function() {
+signDivSignIn.onclick = function () {
   socket.emit("signIn", {
     username: signDivUser.value.trim(),
     password: signDivPass.value.trim()
   });
 };
 
-signDivSignUp.onclick = function() {
+signDivSignUp.onclick = function () {
   socket.emit("signUp", {
     username: signDivUser.value.trim(),
     password: signDivPass.value.trim()
   });
 };
 
-kmsButton.onclick = function() {
+kmsButton.onclick = function () {
   socket.emit("kms");
 };
 
-reviveButton.onclick = function() {
+reviveButton.onclick = function () {
   socket.emit("revive");
 };
 
-socket.on("signUpResponse", function(data) {
+socket.on("signUpResponse", function (data) {
   if (data.success) {
     alert("Sign Up Successful! Log in with Your Username and Password!");
   } else alert("Sign Up unsuccessful! Name already taken!");
 });
 
-socket.on("signInResponse", function(data) {
+socket.on("signInResponse", function (data) {
   if (data.success) {
     signDiv.style.display = "none";
     gameDiv.style.display = "inline-block";
@@ -58,7 +63,7 @@ const chatInput = document.getElementById("chat-input");
 const canvas = document.getElementById("myCanvas").getContext("2d");
 canvas.font = "15px Arial";
 
-socket.on("addToChat", function(data) {
+socket.on("addToChat", function (data) {
   chatText.innerHTML += "<div>" + data + "</div>";
   chatText.scrollTop = chatText.scrollHeight;
 });
@@ -73,7 +78,7 @@ function inTextField(event) {
   );
 }
 
-chatForm.onsubmit = function(event) {
+chatForm.onsubmit = function (event) {
   event.preventDefault();
   if (chatInput.value.substring(0, 1) === "/")
     socket.emit(
@@ -86,7 +91,7 @@ chatForm.onsubmit = function(event) {
   chatInput.value = "";
 };
 
-socket.on("renderInfo", function(playerData, bulletData) {
+socket.on("renderInfo", function (playerData, bulletData) {
   canvas.clearRect(0, 0, 800, 500);
 
   playerListDisplay.innerHTML = "";
@@ -104,12 +109,12 @@ socket.on("renderInfo", function(playerData, bulletData) {
   }
 });
 
-socket.on("Time", function() {
+socket.on("Time", function () {
   const date = Date().slice(4, 24);
   timeStamp.innerHTML = date;
 });
 
-document.onkeydown = function(event) {
+document.onkeydown = function (event) {
   if (!inTextField(event)) {
     if (event.keyCode === 68)
       //d
@@ -129,7 +134,7 @@ document.onkeydown = function(event) {
   }
 };
 
-document.onkeyup = function(event) {
+document.onkeyup = function (event) {
   if (!inTextField(event)) {
     if (event.keyCode === 68)
       //d
