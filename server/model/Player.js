@@ -1,7 +1,3 @@
-/**
- * Created by wilson on 2018-02-03.
- */
-
 import Bullet from "./Bullet";
 
 const X_STARTING_POS = 100;
@@ -29,18 +25,18 @@ const Player = (id, name, points) => {
     speed: PLAYER_SPEED
   };
 
-  player.updatePosition = function() {
+  player.updatePosition = function () {
     if (player.rightPress) player.x += player.speed;
     if (player.leftPress) player.x -= player.speed;
     if (player.upPress) player.y -= player.speed;
     if (player.downPress) player.y += player.speed;
   };
 
-  player.addPoint = function() {
+  player.addPoint = function () {
     player.points++;
   };
 
-  player.shootBullet = function() {
+  player.shootBullet = function () {
     var bullet = Bullet(player.id, player.x, player.y, player.lastPosition);
     bulletList[bullet.id] = bullet;
   };

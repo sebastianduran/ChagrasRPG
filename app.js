@@ -10,7 +10,8 @@ const server = require("http").createServer(app);
 
 const MongoClient = require("mongodb").MongoClient;
 const assert = require("assert");
-const url = "mongodb://admin:admin@ds014648.mlab.com:14648/mmorpg";
+const url =
+  "mongodb+srv://admin:admin@cluster0.n3ilx.mongodb.net/mmorpg?retryWrites=true&w=majority";
 let dbo;
 const io = require("socket.io")(server);
 
@@ -32,7 +33,7 @@ client.connect(function (err, db) {
   dbo = db.db("mmorpg");
   dbo.createCollection(MONGO_REPO, function (err, res) {
     if (err) throw err;
-    console.log("Collection created!");
+    console.log("Collection creada!");
   });
 });
 //console.log(app);
