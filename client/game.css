@@ -1,4 +1,4 @@
-#loginTitle {
+.loginTitle {
   margin: 0;
   margin-bottom: 20px;
   width: 100%;
@@ -8,7 +8,12 @@
   text-align: center;
   color: green;
 }
-
+p {
+  font-family: aaargh, sans-serif;
+}
+input {
+  outline: var(--pixel-size) solid #fff;
+}
 .signDiv {
   text-align: center;
   width: calc(var(--pixel-size) * 90);

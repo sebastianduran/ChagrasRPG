@@ -33,7 +33,7 @@ client.connect(function (err, db) {
   dbo = db.db("mmorpg");
   dbo.createCollection(MONGO_REPO, function (err, res) {
     if (err) throw err;
-    console.log("Collection creada!");
+    console.log("Collection creada!!");
   });
 });
 //console.log(app);
