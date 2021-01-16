@@ -19,6 +19,14 @@ input {
   width: calc(var(--pixel-size) * 90);
   height: calc(var(--pixel-size) * 50);
   outline: var(--pixel-size) solid #fff;
+  background-color: #27546e;
+  position: relative;
+}
+.signDiv {
+  text-align: center;
+  width: calc(var(--pixel-size) * 90);
+  height: calc(var(--pixel-size) * 50);
+  outline: var(--pixel-size) solid #fff;
   background-color: rgba(0, 195, 255, 1);
   position: absolute;
   top: calc(var(--pixel-size) * 50);
