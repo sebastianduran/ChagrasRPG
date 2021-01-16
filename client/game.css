@@ -9,22 +9,22 @@
   color: green;
 }
 
-#signDiv {
+.signDiv {
   text-align: center;
-  margin-top: 50px;
-  width: 268px;
-  padding: 30px;
-  border: none;
-  box-shadow: 0 0 30px 3px rgba(0, 0, 255, 0.6);
-  background-color: rgba(0, 195, 255, 0.9);
-
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  margin-top: -100px;
-  margin-left: -200px;
+  width: calc(var(--pixel-size) * 80);
+  height: calc(var(--pixel-size) * 50);
+  outline: var(--pixel-size) solid #fff;
+  background-color: rgba(0, 195, 255, 1);
+  position: absolute;
+  top: calc(var(--pixel-size) * 50);
+  right: calc(var(--pixel-size) * 40);
 }
-
+.player-list-box {
+  width: 200px;
+  height: 500px;
+  float: left;
+  overflow-y: scroll;
+}
 .button {
   background-color: #4caf50; /* Green */
   border: none;
@@ -39,7 +39,7 @@
 }
 
 #background {
-  zoom: 150%;
+  zoom: 100%;
 }
 
 .char-select-button {
@@ -211,7 +211,7 @@ body {
   padding: 0;
   cursor: pointer;
 }
-.dpad-button svg {
+.dpad-button img {
   display: block;
   height: calc(var(--pixel-size) * 13);
 }

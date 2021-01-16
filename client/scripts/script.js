@@ -13,7 +13,7 @@ var held_directions = []; //State of which arrow keys we are holding down
 var speed = 1; //How fast the character moves in pixels per frame
 
 const gameDiv = document.getElementById("gameDiv");
-const signDiv = document.getElementById("signDiv");
+const signDiv = document.querySelector(".signDiv");
 const signDivUser = document.getElementById("signDiv-user");
 const signDivPass = document.getElementById("signDiv-pass");
 const signDivSignIn = document.getElementById("signDiv-signIn");
@@ -108,7 +108,7 @@ socket.on("renderInfo", function (playerData, bulletData) {
     playerListDisplay.innerHTML +=
       "<div>" + player.username + ": " + player.points + "</div>";
 
-    placeCharacter(); // replace drawChar(player);
+    //placeCharacter(); // replace drawChar(player);
   }
 
   for (let bullet of bulletData) {
@@ -163,7 +163,8 @@ document.onkeyup = function (event) {
 
 const placeCharacter = () => {
   var pixelSize = parseInt(
-    getComputedStyle(document.documentElement).getPropertyValue("--pixel-size")
+    getComputedStyle(document.documentElement).getPropertyValue("--pixel-size"),
+    1
   );
 
   const held_direction = held_directions[0];
@@ -215,6 +216,7 @@ const placeCharacter = () => {
 
 //Set up the game loop
 const step = () => {
+  signDiv.style.display = "block";
   placeCharacter();
   window.requestAnimationFrame(() => {
     step();
