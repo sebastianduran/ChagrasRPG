@@ -12,7 +12,7 @@ var y = 34;
 var held_directions = []; //State of which arrow keys we are holding down
 var speed = 1; //How fast the character moves in pixels per frame
 
-const signDiv = document.querySelectorAll(".signDiv");
+const signDiv = document.querySelector(".signDiv");
 const signDivUser = document.getElementById("signDiv-user");
 const signDivPass = document.getElementById("signDiv-pass");
 const signDivSignIn = document.getElementById("signDiv-signIn");
@@ -24,9 +24,6 @@ const playerListDisplay = document.getElementById("player-list");
 
 const charImg = new Image();
 charImg.src = "/client/sprites/tyler1.png";
-const imgFrameIndex = 50;
-const imgWidth = 50;
-const imgHeight = 60;
 
 signDivSignIn.onclick = function () {
   socket.emit("signIn", {
@@ -59,7 +56,6 @@ socket.on("signUpResponse", function (data) {
 socket.on("signInResponse", function (data) {
   if (data.success) {
     signDiv.style.display = "none";
-    console.log("ingreso");
     alert("Ingreso exitoso!");
   } else alert("Sign in unsuccessful");
 });
@@ -97,9 +93,8 @@ chatForm.onsubmit = function (event) {
 };
 
 socket.on("renderInfo", function (playerData, bulletData) {
-  placeCharacter();
-  /*playerListDisplay.innerHTML = "";
-  
+  playerListDisplay.innerHTML = "";
+
   for (let player of playerData) {
     console.log(
       "datos usuario" + player.username + ": " + player.points,
@@ -110,7 +105,7 @@ socket.on("renderInfo", function (playerData, bulletData) {
       "<div>" + player.username + ": " + player.points + "</div>";
 
     placeCharacter(); // replace drawChar(player);
-  }*/
+  }
 });
 
 socket.on("Time", function () {
@@ -118,50 +113,10 @@ socket.on("Time", function () {
   timeStamp.innerHTML = date;
 });
 
-document.onkeydown = function (event) {
-  if (!inTextField(event)) {
-    if (event.keyCode === 68)
-      //d
-      socket.emit("keyPress", { inputId: "right", state: true });
-    else if (event.keyCode === 83)
-      //s
-      socket.emit("keyPress", { inputId: "down", state: true });
-    else if (event.keyCode === 65)
-      //a
-      socket.emit("keyPress", { inputId: "left", state: true });
-    else if (event.keyCode === 87)
-      //w
-      socket.emit("keyPress", { inputId: "up", state: true });
-    else if (event.keyCode === 32)
-      //space
-      socket.emit("keyPress", { inputId: "shoot", state: true });
-  }
-};
-
-document.onkeyup = function (event) {
-  if (!inTextField(event)) {
-    if (event.keyCode === 68)
-      //d
-      socket.emit("keyPress", { inputId: "right", state: false });
-    else if (event.keyCode === 83)
-      //s
-      socket.emit("keyPress", { inputId: "down", state: false });
-    else if (event.keyCode === 65)
-      //a
-      socket.emit("keyPress", { inputId: "left", state: false });
-    else if (event.keyCode === 87)
-      //w
-      socket.emit("keyPress", { inputId: "up", state: false });
-    else if (event.keyCode === 32)
-      //space
-      socket.emit("keyPress", { inputId: "shoot", state: false });
-  }
-};
-
 const placeCharacter = () => {
   var pixelSize = parseInt(
     getComputedStyle(document.documentElement).getPropertyValue("--pixel-size"),
-    1
+    0
   );
 
   const held_direction = held_directions[0];

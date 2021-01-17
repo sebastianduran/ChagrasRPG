@@ -226,22 +226,21 @@ input {
 }
 .signDiv {
   text-align: center;
-  padding: 0 0 0 0;
-  margin: 0 0 0 0;
-  width: calc(var(--pixel-size) * 160);
-  height: calc(var(--pixel-size) * 144);
+  width: calc(var(--pixel-size) * 159);
+  height: calc(var(--pixel-size) * 143);
   outline: var(--pixel-size) solid #fff;
-  background-color: #1067eb;
+  background: #1067eb;
   position: absolute;
-  top: calc(var(--pixel-size) * 0);
-  right: calc(var(--pixel-size) * 0);
+  top: calc(var(--pixel-size) * 1);
+  right: calc(var(--pixel-size) * 1);
+  display: none;
 }
 .panel-div {
   text-align: center;
   width: calc(var(--pixel-size) * 80);
-  height: calc(var(--pixel-size) * 50);
+  height: calc(var(--pixel-size) * 144);
   outline: var(--pixel-size) solid #fff;
-  background-color: #7ab5d8;
+  background-color: #faf8a0;
   position: absolute;
   top: calc(var(--pixel-size) * 1);
   left: calc(var(--pixel-size) * 163);
@@ -249,6 +248,7 @@ input {
 .player-list-box {
   overflow-y: scroll;
   position: relative;
+  margin: calc(var(--pixel-size) * 1);
 }
 .button {
   background-color: #4caf50; /* Green */
@@ -261,16 +261,28 @@ input {
   border-radius: 8px;
   position: relative;
 }
+.char-select {
+  display: flex;
+}
 .char-select-button {
+  justify-content: vertical;
+  align-content: center;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  background: none;
   outline: 0;
-  border: calc(var(--pixel-size) * 1);
   padding: 0;
+  margin: 0;
   cursor: pointer;
 }
-.char-select-button img {
-  display: block;
-  height: calc(var(--pixel-size) * 13);
+
+#chat-text {
+  font-family: aaargh, sans-serif;
+  margin-bottom: calc(var(--pixel-size) * 2);
+}
+#chat-input {
+  font-family: aaargh, sans-serif;
+  width: calc(var(--pixel-size) * 70);
+  margin-bottom: calc(var(--pixel-size) * 2);
 }
