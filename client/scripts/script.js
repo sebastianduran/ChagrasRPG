@@ -115,8 +115,7 @@ socket.on("Time", function () {
 
 const placeCharacter = () => {
   var pixelSize = parseInt(
-    getComputedStyle(document.documentElement).getPropertyValue("--pixel-size"),
-    0
+    getComputedStyle(document.documentElement).getPropertyValue("--pixel-size")
   );
 
   const held_direction = held_directions[0];
