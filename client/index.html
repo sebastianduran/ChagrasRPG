@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+  <script src="../app.js"></script>
   <link rel="stylesheet" type="text/css" href="/client/game.css" />
 
 
@@ -39,11 +40,9 @@
   <div class="signDiv">
     <title>Login</title>
     <div class="loginTitle">Login</div>
-    <p>Usuario :</p>
-    <input id="signDiv-user" type="text" />
+    <input id="signDiv-user" type="text" placeholder="Usuario"/>
     <br />
-    <p>Password:</p>
-    <input id="signDiv-pass" type="text" />
+    <input id="signDiv-pass" type="text" placeholder="Contraseña"/>
     <br />
     <br />
     <button class="button" id="signDiv-signIn">Sign In</button>
@@ -52,7 +51,7 @@
 
   <div class="panel-div">
     <div class="player-list-box">
-      <div style="font-weight: bold;">Player List</div>
+      <div style="font-weight: bold;">Lista de Jugadores</div>
       <br />
       <div id="player-list"></div>
     </div>
@@ -64,7 +63,7 @@
         <p>Bienvenidos a la Tierra de las Chagras</p>
       </div>
       <form id="chat-form">
-        <input id="chat-input" type="text" style="width: 500px;" />
+        <input id="chat-input" type="text" style="width: 300px;" />
       </form>
     </div>
       
@@ -72,27 +71,24 @@
       <button class="char-select-button" onclick="UpdateCharModel('tyler1')">
         <img
           id="Tyler1"
-          src="./client/sprites/tyler1-select.png"
+          src="/sprites/tyler1-select.png"
           alt="char"
-          style="width: 60px; height: 60px;"
         />
         <br />Tyler1
         </button>
         <button class="char-select-button" onclick="UpdateCharModel('taeyeon')">
         <img
           id="Taeyeon"
-          src="./client/sprites/taeyeon-select.png"
+          src="/sprites/taeyeon-select.png"
           alt="char"
-          style="width: 60px; height: 60px;"
         />
         <br />Taeyeon
         </button>
         <button class="char-select-button" onclick="UpdateCharModel('orge')">
           <img
             id="Orge"
-            src="./client/sprites/orge-select.png"
+            src="/sprites/orge-select.png"
             alt="char"
-            style="width: 60px; height: 60px;"
           />
           <br />Orge
         </button>
@@ -102,7 +98,7 @@
         <div id="extrabuttons">
           <button id="kms-button">KMS</button>
           <button id="revive-button">REVIVE</button>
-          <div id="timeStamp">Time:</div>
+          <div id="timeStamp">Tiempo:</div>
         </div>
     </div>
   </div>
@@ -110,6 +106,5 @@
 
   <head>
     <script type="module" src="/client/scripts/script.js"></script>
-    <script src="../app.js"></script>
   </head>
 </html>

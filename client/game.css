@@ -1,87 +1,3 @@
-.loginTitle {
-  margin: 0;
-  margin-bottom: 20px;
-  width: 100%;
-  padding: 0;
-  font-family: aaargh, sans-serif;
-  font-size: 1.5rem;
-  text-align: center;
-  color: green;
-}
-p {
-  font-family: aaargh, sans-serif;
-}
-input {
-  outline: var(--pixel-size) solid #fff;
-}
-.signDiv {
-  text-align: center;
-  width: calc(var(--pixel-size) * 90);
-  height: calc(var(--pixel-size) * 50);
-  outline: var(--pixel-size) solid #fff;
-  background-color: #27546e;
-  position: relative;
-}
-.signDiv {
-  text-align: center;
-  width: calc(var(--pixel-size) * 90);
-  height: calc(var(--pixel-size) * 50);
-  outline: var(--pixel-size) solid #fff;
-  background-color: rgba(0, 195, 255, 1);
-  position: absolute;
-  top: calc(var(--pixel-size) * 50);
-  right: calc(var(--pixel-size) * 40);
-}
-.player-list-box {
-  width: 200px;
-  height: 500px;
-  float: left;
-  overflow-y: scroll;
-}
-.button {
-  background-color: #4caf50; /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 12px;
-  margin: 4px 2px;
-  border-radius: 8px;
-}
-
-#background {
-  zoom: 100%;
-}
-
-.char-select-button {
-  background-color: white;
-  border: none;
-  text-align: center;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-#chat-text {
-  width: 500px;
-  height: 100px;
-  overflow-y: auto;
-}
-
-#character-select {
-  float: left;
-  padding: 25px;
-}
-
-#chat {
-  float: left;
-}
-
-#extrabuttons {
-  padding-left: 50px;
-}
-
 :root {
   --pixel-size: 2px;
   --grid-cell: calc(var(--pixel-size) * 16);
@@ -292,9 +208,69 @@ body {
   right: calc(var(--pixel-size) * -1);
 }
 
-.headline {
+.loginTitle {
+  margin: 0;
+  margin-bottom: 20px;
+  width: 100%;
+  padding: 0;
+  font-family: aaargh, sans-serif;
+  font-size: 1.5rem;
+  text-align: center;
+  color: white;
+}
+p {
+  font-family: aaargh, sans-serif;
+}
+input {
+  outline: var(--pixel-size) solid #fff;
+}
+.signDiv {
+  text-align: center;
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
+  width: calc(var(--pixel-size) * 160);
+  height: calc(var(--pixel-size) * 144);
+  outline: var(--pixel-size) solid #fff;
+  background-color: #1067eb;
   position: absolute;
-  top: calc(var(--pixel-size) * 2);
-  right: calc(var(--pixel-size) * 2);
-  width: calc(var(--pixel-size) * 75);
+  top: calc(var(--pixel-size) * 0);
+  right: calc(var(--pixel-size) * 0);
+}
+.panel-div {
+  text-align: center;
+  width: calc(var(--pixel-size) * 80);
+  height: calc(var(--pixel-size) * 50);
+  outline: var(--pixel-size) solid #fff;
+  background-color: #7ab5d8;
+  position: absolute;
+  top: calc(var(--pixel-size) * 1);
+  left: calc(var(--pixel-size) * 163);
+}
+.player-list-box {
+  overflow-y: scroll;
+  position: relative;
+}
+.button {
+  background-color: #4caf50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  font-size: 12px;
+  margin: 4px 2px;
+  border-radius: 8px;
+  position: relative;
+}
+.char-select-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: 0;
+  border: calc(var(--pixel-size) * 1);
+  padding: 0;
+  cursor: pointer;
+}
+.char-select-button img {
+  display: block;
+  height: calc(var(--pixel-size) * 13);
 }

@@ -12,8 +12,7 @@ var y = 34;
 var held_directions = []; //State of which arrow keys we are holding down
 var speed = 1; //How fast the character moves in pixels per frame
 
-const gameDiv = document.getElementById("gameDiv");
-const signDiv = document.querySelector(".signDiv");
+const signDiv = document.querySelectorAll(".signDiv");
 const signDivUser = document.getElementById("signDiv-user");
 const signDivPass = document.getElementById("signDiv-pass");
 const signDivSignIn = document.getElementById("signDiv-signIn");
@@ -53,22 +52,21 @@ reviveButton.onclick = function () {
 
 socket.on("signUpResponse", function (data) {
   if (data.success) {
-    alert("Sign Up Successful! Log in with Your Username and Password!");
+    alert("Registro exitoso!");
   } else alert("Sign Up unsuccessful! Name already taken!");
 });
 
 socket.on("signInResponse", function (data) {
   if (data.success) {
     signDiv.style.display = "none";
-    gameDiv.style.display = "inline-block";
+    console.log("ingreso");
+    alert("Ingreso exitoso!");
   } else alert("Sign in unsuccessful");
 });
 
 const chatText = document.getElementById("chat-text");
 const chatForm = document.getElementById("chat-form");
 const chatInput = document.getElementById("chat-input");
-const canvas = document.getElementById("myCanvas").getContext("2d");
-canvas.font = "15px Arial";
 
 socket.on("addToChat", function (data) {
   chatText.innerHTML += "<div>" + data + "</div>";
@@ -99,21 +97,20 @@ chatForm.onsubmit = function (event) {
 };
 
 socket.on("renderInfo", function (playerData, bulletData) {
-  canvas.clearRect(0, 0, 800, 500);
-
-  playerListDisplay.innerHTML = "";
-
+  placeCharacter();
+  /*playerListDisplay.innerHTML = "";
+  
   for (let player of playerData) {
-    canvas.fillText(player.username + ": " + player.points, player.x, player.y);
+    console.log(
+      "datos usuario" + player.username + ": " + player.points,
+      player.x,
+      player.y
+    );
     playerListDisplay.innerHTML +=
       "<div>" + player.username + ": " + player.points + "</div>";
 
-    //placeCharacter(); // replace drawChar(player);
-  }
-
-  for (let bullet of bulletData) {
-    drawBullet(bullet);
-  }
+    placeCharacter(); // replace drawChar(player);
+  }*/
 });
 
 socket.on("Time", function () {
@@ -216,7 +213,6 @@ const placeCharacter = () => {
 
 //Set up the game loop
 const step = () => {
-  signDiv.style.display = "block";
   placeCharacter();
   window.requestAnimationFrame(() => {
     step();
@@ -260,11 +256,9 @@ const removePressedAll = () => {
   });
 };
 document.body.addEventListener("mousedown", () => {
-  console.log("mouse is down");
   isPressed = true;
 });
 document.body.addEventListener("mouseup", () => {
-  console.log("mouse is up");
   isPressed = false;
   held_directions = [];
   removePressedAll();
@@ -327,85 +321,6 @@ document
 document
   .querySelector(".dpad-down")
   .addEventListener("mouseover", (e) => handleDpadPress(directions.down));
-
-function drawChar(player) {
-  const playersImg = new Image();
-  playersImg.src = "/client/sprites/" + player.char + ".png";
-
-  switch (player.lastPosition) {
-    case "down":
-      canvas.drawImage(
-        playersImg,
-        0,
-        0,
-        imgWidth,
-        imgHeight,
-        player.x,
-        player.y,
-        imgWidth,
-        imgHeight
-      );
-      break;
-    case "up":
-      canvas.drawImage(
-        playersImg,
-        imgFrameIndex,
-        0,
-        imgWidth,
-        imgHeight,
-        player.x,
-        player.y,
-        imgWidth,
-        imgHeight
-      );
-      break;
-    case "left":
-      canvas.drawImage(
-        playersImg,
-        imgFrameIndex * 2,
-        0,
-        imgWidth,
-        imgHeight,
-        player.x,
-        player.y,
-        imgWidth,
-        imgHeight
-      );
-      break;
-    case "right":
-      canvas.drawImage(
-        playersImg,
-        imgFrameIndex * 3,
-        0,
-        imgWidth,
-        imgHeight,
-        player.x,
-        player.y,
-        imgWidth,
-        imgHeight
-      );
-      break;
-    default:
-      console.log("entro en default");
-  }
-}
-
-function drawBullet(bullet) {
-  const bulletImg = new Image();
-  bulletImg.src = "/client/sprites/bullet.png";
-
-  canvas.drawImage(
-    bulletImg,
-    0,
-    0,
-    imgWidth,
-    imgHeight,
-    bullet.x,
-    bullet.y,
-    imgWidth,
-    imgHeight
-  );
-}
 
 /*0function UpdateCharModel(name) {
   charImg.src = "/client/sprites/" + name + ".png";

@@ -21,5 +21,8 @@
     "promise": "8.1.0",
     "socket.io": "2.3.0"
   },
-  "keywords": ["javascript", "starter"]
+  "keywords": [
+    "javascript",
+    "starter"
+  ]
 }
