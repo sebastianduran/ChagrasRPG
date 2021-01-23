@@ -4,12 +4,14 @@
 var socket = io();
 
 var character = document.querySelector(".character");
+var character_spritesheet = document.querySelector(".character_spritesheet");
 var map = document.querySelector(".map");
 
 //start in the middle of the map
 var x = 90;
 var y = 34;
 var held_directions = []; //State of which arrow keys we are holding down
+var held_actions = []; //State of which arrow keys we are holding down
 var speed = 1; //How fast the character moves in pixels per frame
 
 const signDiv = document.querySelector(".signDiv");
@@ -21,6 +23,9 @@ const kmsButton = document.getElementById("kms-button");
 const reviveButton = document.getElementById("revive-button");
 const timeStamp = document.getElementById("timeStamp");
 const playerListDisplay = document.getElementById("player-list");
+const personaje1 = document.getElementById("char1");
+const personaje2 = document.getElementById("char2");
+const personaje3 = document.getElementById("char3");
 
 const charImg = new Image();
 charImg.src = "/client/sprites/tyler1.png";
@@ -118,6 +123,8 @@ const placeCharacter = () => {
     getComputedStyle(document.documentElement).getPropertyValue("--pixel-size")
   );
 
+  character_spritesheet.style.background = "url(/client/sprites/orge.png)";
+
   const held_direction = held_directions[0];
   if (held_direction) {
     if (held_direction === directions.right) {
@@ -160,11 +167,10 @@ const placeCharacter = () => {
   map.style.transform = `translate3d( ${-x * pixelSize + camera_left}px, ${
     -y * pixelSize + camera_top
   }px, 0 )`;
-  character.style.transform = `translate3d( ${x * pixelSize}px, ${
+  character.style.transform = `translate3d( ${x * pixelSize + 30}px, ${
     y * pixelSize
   }px, 0 )`;
 };
-
 //Set up the game loop
 const step = () => {
   placeCharacter();
@@ -181,12 +187,23 @@ const directions = {
   left: "left",
   right: "right"
 };
-const keys = {
-  38: directions.up,
-  37: directions.left,
-  39: directions.right,
-  40: directions.down
+const actions = {
+  star: "star",
+  lighting: "down",
+  water: "water",
+  tree: "tree"
 };
+const keys = {
+  87: directions.up,
+  65: directions.left,
+  68: directions.right,
+  83: directions.down,
+  85: actions.star,
+  73: actions.lighting,
+  74: actions.water,
+  75: actions.tree
+};
+
 document.addEventListener("keydown", (e) => {
   var dir = keys[e.which];
   if (dir && held_directions.indexOf(dir) === -1) {
@@ -228,7 +245,7 @@ const handleDpadPress = (direction, click) => {
     document.querySelector(".dpad-" + direction).classList.add("pressed");
   }
 };
-//Bind a ton of events for the dpad
+//Atando los eventos para el dpad
 document
   .querySelector(".dpad-left")
   .addEventListener("touchstart", (e) =>
@@ -262,19 +279,6 @@ document
 document
   .querySelector(".dpad-down")
   .addEventListener("mousedown", (e) => handleDpadPress(directions.down, true));
-
-document
-  .querySelector(".dpad-left")
-  .addEventListener("mouseover", (e) => handleDpadPress(directions.left));
-document
-  .querySelector(".dpad-up")
-  .addEventListener("mouseover", (e) => handleDpadPress(directions.up));
-document
-  .querySelector(".dpad-right")
-  .addEventListener("mouseover", (e) => handleDpadPress(directions.right));
-document
-  .querySelector(".dpad-down")
-  .addEventListener("mouseover", (e) => handleDpadPress(directions.down));
 
 /*0function UpdateCharModel(name) {
   charImg.src = "/client/sprites/" + name + ".png";
